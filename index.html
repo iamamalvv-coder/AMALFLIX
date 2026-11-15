@@ -1,0 +1,1076 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AMALFLIX | Must Watch Movies</title>
+
+<style>
+:root {
+    --red: #e50914;
+    --bg: #080808;
+    --card: #181818;
+    --muted: #aaa;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* NAVIGATION */
+
+.navbar {
+    height: 75px;
+    padding: 0 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    background: linear-gradient(to bottom, #000, transparent);
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: 900;
+    color: var(--red);
+    letter-spacing: 2px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-box input {
+    width: 230px;
+    padding: 10px 13px;
+    background: rgba(0,0,0,.7);
+    border: 1px solid #555;
+    border-radius: 5px;
+    color: white;
+    outline: none;
+}
+
+.search-box input:focus {
+    border-color: var(--red);
+}
+
+/* HERO SECTION */
+
+.hero {
+    min-height: 620px;
+    display: flex;
+    align-items: center;
+    padding: 100px 7% 60px;
+
+    background:
+    linear-gradient(to right, #080808 5%, rgba(0,0,0,.88) 35%, rgba(0,0,0,.2) 100%),
+    linear-gradient(to top, #080808 2%, transparent 60%),
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=1800")
+    center/cover no-repeat;
+}
+
+.hero-content {
+    max-width: 620px;
+}
+
+.tag {
+    color: #ff5555;
+    font-size: 13px;
+    letter-spacing: 3px;
+    font-weight: bold;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 7vw, 76px);
+    font-weight: 900;
+    margin-bottom: 18px;
+    line-height: 1.05;
+}
+
+.hero-info {
+    color: #ddd;
+    margin-bottom: 18px;
+    font-size: 15px;
+}
+
+.hero p {
+    color: #ccc;
+    line-height: 1.8;
+    font-size: 16px;
+    margin-bottom: 28px;
+}
+
+.btn {
+    border: none;
+    padding: 13px 23px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: bold;
+    transition: .25s;
+}
+
+.btn:hover {
+    transform: scale(1.04);
+}
+
+.btn-primary {
+    background: white;
+    color: black;
+}
+
+.btn-secondary {
+    background: rgba(100,100,100,.7);
+    color: white;
+    margin-left: 10px;
+}
+
+/* MAIN CONTENT */
+
+main {
+    padding: 20px 6% 70px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 0;
+}
+
+.section-heading h2 {
+    font-size: 25px;
+}
+
+.section-heading span {
+    color: var(--muted);
+    font-size: 13px;
+}
+
+/* FILTER BUTTONS */
+
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    background: #242424;
+    color: white;
+    border: 1px solid #333;
+    padding: 9px 17px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--red);
+    border-color: var(--red);
+}
+
+/* MOVIE GRID */
+
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 25px 17px;
+}
+
+.movie-card {
+    position: relative;
+    background: var(--card);
+    border-radius: 9px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.movie-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(229,9,20,.22);
+}
+
+.poster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+    background: #292929;
+}
+
+.movie-info {
+    padding: 13px;
+}
+
+.movie-info h3 {
+    font-size: 15px;
+    margin-bottom: 9px;
+}
+
+.movie-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.rating {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.movie-genre {
+    margin-top: 10px;
+    color: #bbb;
+    font-size: 12px;
+}
+
+.movie-rank {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--red);
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background: rgba(0,0,0,.75);
+    color: white;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 19px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.favorite-btn.saved {
+    color: #ff3945;
+}
+
+/* MOVIE MODAL */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.88);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    background: #191919;
+    max-width: 750px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-banner {
+    height: 270px;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+.modal-banner::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, #191919, transparent);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 3;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: none;
+    background: #222;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.modal-details {
+    padding: 0 30px 30px;
+    margin-top: -35px;
+    position: relative;
+    z-index: 2;
+}
+
+.modal-details h2 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.modal-details p {
+    color: #ccc;
+    line-height: 1.8;
+    margin: 18px 0;
+}
+
+.modal-meta {
+    color: #ddd;
+    font-size: 14px;
+    line-height: 2;
+}
+
+/* EMPTY SEARCH */
+
+.empty {
+    display: none;
+    padding: 60px 10px;
+    text-align: center;
+    color: #aaa;
+    grid-column: 1 / -1;
+}
+
+/* FOOTER */
+
+footer {
+    background: #111;
+    border-top: 1px solid #292929;
+    text-align: center;
+    padding: 30px 15px;
+    color: #888;
+    font-size: 13px;
+    line-height: 2;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media(max-width: 1000px) {
+    .movie-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media(max-width: 700px) {
+
+    .navbar {
+        height: auto;
+        padding: 18px 5%;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .logo {
+        font-size: 24px;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search-box input {
+        width: 100%;
+    }
+
+    .hero {
+        min-height: 570px;
+        padding: 150px 6% 60px;
+        background-position: 60% center;
+    }
+
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .movie-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .movie-info {
+        padding: 10px;
+    }
+
+    .movie-info h3 {
+        font-size: 13px;
+    }
+
+    main {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .modal-banner {
+        height: 200px;
+    }
+}
+
+@media(max-width: 360px) {
+    .movie-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION BAR -->
+
+<header class="navbar">
+
+    <div class="logo">AMALFLIX.</div>
+
+    <div class="search-box">
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search movies..."
+            oninput="renderMovies()"
+        >
+    </div>
+
+</header>
+
+
+<!-- HERO SECTION -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="tag">
+            THE ULTIMATE MOVIE COLLECTION
+        </div>
+
+        <h1>INCEPTION</h1>
+
+        <div class="hero-info">
+            ⭐ 8.8/10 | 2010 | Sci-Fi / Thriller
+        </div>
+
+        <p>
+            A skilled thief enters people's dreams to steal secrets.
+            Now he faces his most challenging mission yet:
+            planting an idea instead of stealing one.
+        </p>
+
+        <div>
+
+            <button class="btn btn-primary"
+                onclick="openMovie(1)">
+                ▶ Explore Movie
+            </button>
+
+            <button class="btn btn-secondary"
+                onclick="openTrailer('Inception')">
+                Trailer
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MOVIES SECTION -->
+
+<main>
+
+    <div class="section-heading">
+
+        <h2 id="sectionTitle">
+            🔥 Top 10 Must-Watch Movies
+        </h2>
+
+        <span id="movieCount">10 Movies</span>
+
+    </div>
+
+
+    <!-- GENRE FILTERS -->
+
+    <div class="filters" id="filters">
+
+        <button class="filter-btn active"
+            onclick="setFilter('All',this)">
+            All
+        </button>
+
+        <button class="filter-btn"
+            onclick="setFilter('Sci-Fi',this)">
+            Sci-Fi
+        </button>
+
+        <button class="filter-btn"
+            onclick="setFilter('Drama',this)">
+            Drama
+        </button>
+
+        <button class="filter-btn"
+            onclick="setFilter('Action',this)">
+            Action
+        </button>
+
+        <button class="filter-btn"
+            onclick="setFilter('Thriller',this)">
+            Thriller
+        </button>
+
+        <button class="filter-btn"
+            onclick="setFilter('Animation',this)">
+            Animation
+        </button>
+
+    </div>
+
+
+    <!-- MOVIE CARDS -->
+
+    <div class="movie-grid" id="movieGrid"></div>
+
+</main>
+
+
+<!-- MOVIE DETAILS POPUP -->
+
+<div class="modal" id="movieModal"
+    onclick="closeOutside(event)">
+
+    <div class="modal-content">
+
+        <button class="close-btn"
+            onclick="closeModal()">
+            ×
+        </button>
+
+        <div class="modal-banner"
+            id="modalBanner">
+        </div>
+
+        <div class="modal-details">
+
+            <h2 id="modalTitle"></h2>
+
+            <div class="modal-meta"
+                id="modalMeta">
+            </div>
+
+            <p id="modalDescription"></p>
+
+            <button class="btn btn-primary"
+                id="trailerButton">
+                ▶ Watch Trailer
+            </button>
+
+            <button class="btn btn-secondary"
+                id="modalFavorite">
+                + My List
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="logo">AMALFLIX.</div>
+
+    <p>Your next favourite movie is waiting.</p>
+
+    <p>© 2026 AMALFLIX. Created for movie lovers.</p>
+
+    <p>
+        Movie posters and information belong to their respective owners.
+    </p>
+
+</footer>
+
+
+<script>
+
+// ===================================
+// MOVIE DATABASE
+// ===================================
+
+const movies = [
+
+{
+ id: 1,
+ title: "Inception",
+ year: 2010,
+ rating: 8.8,
+ genre: ["Sci-Fi", "Thriller", "Action"],
+ duration: "2h 28m",
+ director: "Christopher Nolan",
+ poster: "https://image.tmdb.org/t/p/w500/oYuLEt3zVCKq57qu2F8dT7NIa6f.jpg",
+ description: "A skilled thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea into the mind of a CEO."
+},
+
+{
+ id: 2,
+ title: "Interstellar",
+ year: 2014,
+ rating: 8.7,
+ genre: ["Sci-Fi", "Drama"],
+ duration: "2h 49m",
+ director: "Christopher Nolan",
+ poster: "https://image.tmdb.org/t/p/w500/gEU2QniE6E77NI6lCU6MxlNBvIx.jpg",
+ description: "A team of explorers travels beyond this galaxy to discover whether mankind has a future among the stars."
+},
+
+{
+ id: 3,
+ title: "The Dark Knight",
+ year: 2008,
+ rating: 9.0,
+ genre: ["Action", "Drama", "Thriller"],
+ duration: "2h 32m",
+ director: "Christopher Nolan",
+ poster: "https://image.tmdb.org/t/p/w500/qJ2tW6WMUDux911r6m7haRef0WH.jpg",
+ description: "Batman faces the Joker, a criminal mastermind who wants to plunge Gotham City into chaos."
+},
+
+{
+ id: 4,
+ title: "The Shawshank Redemption",
+ year: 1994,
+ rating: 9.3,
+ genre: ["Drama"],
+ duration: "2h 22m",
+ director: "Frank Darabont",
+ poster: "https://image.tmdb.org/t/p/w500/9cqNxx0GxF0bflZmeSMuL5tnGzr.jpg",
+ description: "Two imprisoned men bond over several years, finding solace and eventual redemption through acts of common decency."
+},
+
+{
+ id: 5,
+ title: "Parasite",
+ year: 2019,
+ rating: 8.5,
+ genre: ["Drama", "Thriller"],
+ duration: "2h 12m",
+ director: "Bong Joon-ho",
+ poster: "https://image.tmdb.org/t/p/w500/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+ description: "A poor family gradually infiltrates the lives of a wealthy household, leading to unexpected and dangerous consequences."
+},
+
+{
+ id: 6,
+ title: "Pulp Fiction",
+ year: 1994,
+ rating: 8.8,
+ genre: ["Drama", "Thriller"],
+ duration: "2h 34m",
+ director: "Quentin Tarantino",
+ poster: "https://image.tmdb.org/t/p/w500/d5iIlFn5s0ImszYzBPb8JPIfbXD.jpg",
+ description: "The lives of two mob hitmen, a boxer, and a gangster's wife intertwine in a series of crime stories."
+},
+
+{
+ id: 7,
+ title: "The Matrix",
+ year: 1999,
+ rating: 8.7,
+ genre: ["Sci-Fi", "Action"],
+ duration: "2h 16m",
+ director: "The Wachowskis",
+ poster: "https://image.tmdb.org/t/p/w500/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg",
+ description: "A computer hacker discovers that reality as humanity knows it is actually a simulated world."
+},
+
+{
+ id: 8,
+ title: "Spirited Away",
+ year: 2001,
+ rating: 8.6,
+ genre: ["Animation", "Drama"],
+ duration: "2h 5m",
+ director: "Hayao Miyazaki",
+ poster: "https://image.tmdb.org/t/p/w500/39wmItIWsg5sZMyRUHLkWBcuVCM.jpg",
+ description: "A young girl enters a mysterious world of spirits and must find a way to rescue her parents."
+},
+
+{
+ id: 9,
+ title: "Gladiator",
+ year: 2000,
+ rating: 8.5,
+ genre: ["Action", "Drama"],
+ duration: "2h 35m",
+ director: "Ridley Scott",
+ poster: "https://image.tmdb.org/t/p/w500/ty8TGRuvJLPUmAR1H1nRIsgwvim.jpg",
+ description: "A betrayed Roman general fights his way through the gladiatorial arena to seek justice."
+},
+
+{
+ id: 10,
+ title: "Whiplash",
+ year: 2014,
+ rating: 8.5,
+ genre: ["Drama"],
+ duration: "1h 47m",
+ director: "Damien Chazelle",
+ poster: "https://image.tmdb.org/t/p/w500/7fn624j5lj3xTme2SgiLCeuedmO.jpg",
+ description: "A young drummer faces an intense and demanding music instructor in pursuit of greatness."
+}
+
+];
+
+
+// ===================================
+// APPLICATION STATE
+// ===================================
+
+let currentFilter = "All";
+
+let favorites = JSON.parse(
+    localStorage.getItem("amalflixFavorites") || "[]"
+);
+
+let favoritesOnly = false;
+
+
+// ===================================
+// DISPLAY MOVIES
+// ===================================
+
+function renderMovies() {
+
+    const grid = document.getElementById("movieGrid");
+
+    const search = document.getElementById("searchInput")
+        .value.toLowerCase();
+
+    grid.innerHTML = "";
+
+    const filtered = movies.filter(movie => {
+
+        const matchesSearch =
+            movie.title.toLowerCase().includes(search);
+
+        const matchesGenre =
+            currentFilter === "All" ||
+            movie.genre.includes(currentFilter);
+
+        const matchesFavorites =
+            !favoritesOnly ||
+            favorites.includes(movie.id);
+
+        return matchesSearch &&
+               matchesGenre &&
+               matchesFavorites;
+
+    });
+
+    document.getElementById("movieCount").textContent =
+        filtered.length + " Movies";
+
+    if(filtered.length === 0) {
+
+        grid.innerHTML =
+            '<div class="empty" style="display:block;">No movies found.</div>';
+
+        return;
+    }
+
+    filtered.forEach(movie => {
+
+        const isSaved = favorites.includes(movie.id);
+
+        const card = document.createElement("div");
+
+        card.className = "movie-card";
+
+        card.innerHTML = `
+
+            <span class="movie-rank">
+                #${movie.id}
+            </span>
+
+            <button class="favorite-btn ${isSaved ? 'saved' : ''}"
+                aria-label="Toggle watchlist"
+                title="Add to My List"
+                onclick="toggleFavorite(event,${movie.id})">
+
+                ${isSaved ? '♥' : '♡'}
+
+            </button>
+
+            <img class="poster"
+                src="${movie.poster}"
+                alt="${movie.title} poster"
+                loading="lazy"
+                onerror="this.style.visibility='hidden'">
+
+            <div class="movie-info">
+
+                <h3>${movie.title}</h3>
+
+                <div class="movie-meta">
+
+                    <span>${movie.year}</span>
+
+                    <span class="rating">
+                        ★ ${movie.rating}
+                    </span>
+
+                </div>
+
+                <div class="movie-genre">
+                    ${movie.genre.join(" · ")}
+                </div>
+
+            </div>
+
+        `;
+
+        card.addEventListener("click", () => {
+            openMovie(movie.id);
+        });
+
+        grid.appendChild(card);
+
+    });
+
+}
+
+
+// ===================================
+// GENRE FILTER
+// ===================================
+
+function setFilter(genre, button) {
+
+    currentFilter = genre;
+
+    favoritesOnly = false;
+
+    document.getElementById("sectionTitle").textContent =
+        genre === "All"
+        ? "🔥 Top 10 Must-Watch Movies"
+        : genre + " Movies";
+
+    document.querySelectorAll(".filter-btn").forEach(btn => {
+
+        btn.classList.remove("active");
+
+    });
+
+    button.classList.add("active");
+
+    renderMovies();
+
+}
+
+
+// ===================================
+// WATCHLIST
+// ===================================
+
+function toggleFavorite(event, id) {
+
+    event.stopPropagation();
+
+    if(favorites.includes(id)) {
+
+        favorites = favorites.filter(item => item !== id);
+
+    } else {
+
+        favorites.push(id);
+
+    }
+
+    localStorage.setItem(
+        "amalflixFavorites",
+        JSON.stringify(favorites)
+    );
+
+    renderMovies();
+
+}
+
+
+// ===================================
+// SHOW WATCHLIST
+// ===================================
+
+function showFavorites() {
+
+    favoritesOnly = true;
+
+    currentFilter = "All";
+
+    document.getElementById("searchInput").value = "";
+
+    document.getElementById("sectionTitle").textContent =
+        "❤️ My Watchlist";
+
+    renderMovies();
+
+}
+
+
+// ===================================
+// MOVIE DETAILS
+// ===================================
+
+function openMovie(id) {
+
+    const movie = movies.find(item => item.id === id);
+
+    if(!movie) return;
+
+    document.getElementById("modalTitle").textContent =
+        movie.title;
+
+    document.getElementById("modalMeta").textContent =
+        `⭐ ${movie.rating}/10 | ${movie.year} | ${movie.duration} | ${movie.genre.join(", ")}`;
+
+    document.getElementById("modalDescription").textContent =
+        movie.description +
+        " Director: " + movie.director + ".";
+
+    document.getElementById("modalBanner").style.backgroundImage =
+        `linear-gradient(to bottom, transparent, #191919), url("${movie.poster}")`;
+
+    document.getElementById("trailerButton").onclick = () => {
+
+        openTrailer(movie.title);
+
+    };
+
+    const favoriteButton =
+        document.getElementById("modalFavorite");
+
+    favoriteButton.textContent =
+        favorites.includes(id)
+        ? "♥ In My List"
+        : "+ My List";
+
+    favoriteButton.onclick = () => {
+
+        if(favorites.includes(id)) {
+
+            favorites = favorites.filter(item => item !== id);
+
+        } else {
+
+            favorites.push(id);
+
+        }
+
+        localStorage.setItem(
+            "amalflixFavorites",
+            JSON.stringify(favorites)
+        );
+
+        favoriteButton.textContent =
+            favorites.includes(id)
+            ? "♥ In My List"
+            : "+ My List";
+
+        renderMovies();
+
+    };
+
+    document.getElementById("movieModal")
+        .classList.add("show");
+
+}
+
+
+// ===================================
+// CLOSE MODAL
+// ===================================
+
+function closeModal() {
+
+    document.getElementById("movieModal")
+        .classList.remove("show");
+
+}
+
+function closeOutside(event) {
+
+    if(event.target.id === "movieModal") {
+
+        closeModal();
+
+    }
+
+}
+
+
+// ===================================
+// YOUTUBE TRAILERS
+// ===================================
+
+function openTrailer(title) {
+
+    const url =
+        "https://www.youtube.com/results?search_query=" +
+        encodeURIComponent(title + " official trailer");
+
+    window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+    );
+
+}
+
+
+// ===================================
+// INITIALIZE WEBSITE
+// ===================================
+
+renderMovies();
+
+</script>
+
+</body>
+</html>
