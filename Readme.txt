@@ -82,26 +82,6 @@ cd AMALFLIX
 
 Open `index.html` directly in your browser.
 
-Alternatively, use the VS Code Live Server extension.
-
-## ☁️ AWS Deployment – S3 Static Website Hosting
-
-AMALFLIX can be deployed using Amazon S3 static website hosting.
-
-**Deployment steps:**
-
-1. Log in to the AWS Management Console.
-2. Navigate to Amazon S3.
-3. Create a new S3 bucket.
-4. Upload the `index.html` file.
-5. Open the bucket's Properties section.
-6. Navigate to Static Website Hosting.
-7. Enable static website hosting.
-8. Set `index.html` as the index document.
-9. Configure the required bucket access permissions if public website access is intended.
-10. Access the website using the S3 static website endpoint.
-
-**Optional enhancement:** Use Amazon CloudFront with S3 to distribute the website through a CDN and support HTTPS.
 
 ## 🖥️ Application Functionality
 
@@ -116,16 +96,6 @@ AMALFLIX can be deployed using Amazon S3 static website hosting.
 | Trailer Button | Opens YouTube trailer search |
 | Footer | Website branding and copyright information |
 
-## 🔮 Future Enhancements
-
-- User registration and authentication.
-- Backend integration using Node.js.
-- Database integration using MySQL or MongoDB.
-- Admin dashboard to manage movie collections.
-- Dynamic movie information using TMDB API.
-- Personalized movie recommendations.
-- CloudFront CDN integration.
-- Movie watch history and user profiles.
 
 ## 📌 Important Notes
 
@@ -141,7 +111,7 @@ AMALFLIX can be deployed using Amazon S3 static website hosting.
 
 Cybersecurity | AWS Cloud | DevOps | Web Development
 
-GitHub: [Your GitHub Profile](https://github.com/YOUR-USERNAME)
+GitHub: https://github.com/iamamalvv-coder
 
 ---
 
